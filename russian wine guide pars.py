@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import pandas as pd
 import regex
 import datetime
+import os
 
 #%%
 
@@ -67,14 +68,16 @@ def get_wine(url,wine_type):
         if len(price_for)>0:
             price_for = regex.sub('/','',price_for)
             price_for = replace_commas(price_for)
+            
         
+        brand = s.find('h1',class_="h1 product-title").text
+        if len(brand)>0:
+            brand = brand.strip()
         
         properties = s.find('div',class_="properties")
         properties = properties.findAll('p')
         
-        
-        
-        winery = get_property('Производитель',properties)#properties[1].text
+        company = get_property('Производитель',properties)#properties[1].text
         research_year = get_property('Год исследования',properties)#properties[3].text
         barcode = get_property('Штрихкод',properties)#properties[5].text
         vintage = get_property('Год урожая',properties)#properties[7].text
@@ -90,7 +93,8 @@ def get_wine(url,wine_type):
         wine = {'name':                 name,
                 'wine_type':            wine_type,
                 'barcode':              barcode,
-                'winery':               winery,
+                'brand':                brand,
+                'company':              company,
                 'research_year':        research_year,
                 'vintage':              vintage,
                 'sugar':                sugar,
@@ -99,7 +103,6 @@ def get_wine(url,wine_type):
                 'price_for':            price_for,
                 'rating_gost':          rating_gost,
                 'rating':               rating   ,
-                'wine_type':            wine_type,
                 'url':                  url
             }
         
@@ -113,7 +116,7 @@ def parse_wine_from_wine_list(winelist, wine_type):
     l=str(len(winelist))
     for wine_page in winelist:
         
-        print('Обрабатываем '+str(k) +' из ' +l)
+        print(wine_type+'. Обрабатываем '+str(k) +' из ' +l)
             
         url = 'https://rskrf.ru/'+wine_page['href']
         
@@ -138,26 +141,16 @@ wine_df = None
 winelist = get_wines_list('https://rskrf.ru/ratings/napitki/alkogolnye/krasnoe-vino/')
 wine_df = parse_wine_from_wine_list(winelist,'Красное')
 
-
-# winelist = get_wines_list('https://rskrf.ru/ratings/napitki/alkogolnye/beloe-vino/','Белое')
-# winelist = get_wines_list('https://rskrf.ru/ratings/napitki/alkogolnye/likyernoe-vino/','Ликерное')
-# winelist = get_wines_list('https://rskrf.ru/ratings/napitki/alkogolnye/rozovoe-vino/','Розовое')
-# winelist = get_wines_list('https://rskrf.ru/ratings/napitki/alkogolnye/igristoe/','Игристое')
-
-    
-#%%
 wine_df = wine_df.append(parse_wine_from_wine_list(get_wines_list('https://rskrf.ru/ratings/napitki/alkogolnye/beloe-vino/'),'Белое'))
 wine_df = wine_df.append(parse_wine_from_wine_list(get_wines_list('https://rskrf.ru/ratings/napitki/alkogolnye/rozovoe-vino/'),'Розовое'))
 wine_df = wine_df.append(parse_wine_from_wine_list(get_wines_list('https://rskrf.ru/ratings/napitki/alkogolnye/likyernoe-vino/'),'Ликерное'))
 wine_df = wine_df.append(parse_wine_from_wine_list(get_wines_list('https://rskrf.ru/ratings/napitki/alkogolnye/igristoe/'),'Игристое'))
 
-#%%
+
 wine_df.to_csv('wines_df.csv')#+str(datetime.datetime.now())+'.csv')
 
 
 
 
 #%%
-
-print(winelist)
 
