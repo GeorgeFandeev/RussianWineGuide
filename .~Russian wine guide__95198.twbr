@@ -6160,49 +6160,6 @@
               <bucket>&quot;Южная винная Компания. Мерло 15. вино столовое сухое красное   2017&quot;</bucket>
             </map>
           </encoding>
-          <encoding attr='color' field='[none:wine_type:nk]' type='palette'>
-            <map to='#4e79a7'>
-              <bucket>%null%</bucket>
-            </map>
-            <map to='#5c6068'>
-              <bucket>&quot;Ликерное&quot;</bucket>
-            </map>
-            <map to='#87d180'>
-              <bucket>&quot;Белое&quot;</bucket>
-            </map>
-            <map to='#ae123a'>
-              <bucket>&quot;Красное&quot;</bucket>
-            </map>
-            <map to='#f9a750'>
-              <bucket>&quot;Игристое&quot;</bucket>
-            </map>
-            <map to='#fdab9b'>
-              <bucket>&quot;Розовое&quot;</bucket>
-            </map>
-          </encoding>
-          <encoding attr='color' field='[none:sugar:nk]' type='palette'>
-            <map to='#4e79a7'>
-              <bucket>&quot;Полусладкое&quot;</bucket>
-            </map>
-            <map to='#59a14f'>
-              <bucket>&quot;Брют&quot;</bucket>
-            </map>
-            <map to='#76b7b2'>
-              <bucket>%null%</bucket>
-            </map>
-            <map to='#b07aa1'>
-              <bucket>&quot;Брют Экстра&quot;</bucket>
-            </map>
-            <map to='#e15759'>
-              <bucket>&quot;Сухое&quot;</bucket>
-            </map>
-            <map to='#edc948'>
-              <bucket>&quot;Полусухое&quot;</bucket>
-            </map>
-            <map to='#f28e2b'>
-              <bucket>&quot;Сладкое&quot;</bucket>
-            </map>
-          </encoding>
           <encoding attr='color' field='[Sugar &amp; Wine Type (Combined)]' type='palette'>
             <map to='#24693d'>
               <bucket>(&quot;Сладкое&quot;,&quot;Белое&quot;)</bucket>
@@ -6260,6 +6217,49 @@
             </map>
             <map to='#ffbeb2'>
               <bucket>(&quot;Сухое&quot;,&quot;Розовое&quot;)</bucket>
+            </map>
+          </encoding>
+          <encoding attr='color' field='[none:sugar:nk]' type='palette'>
+            <map to='#2a5783'>
+              <bucket>&quot;Сладкое&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;Полусладкое&quot;</bucket>
+            </map>
+            <map to='#6a9bc3'>
+              <bucket>&quot;Полусухое&quot;</bucket>
+            </map>
+            <map to='#76b7b2'>
+              <bucket>%null%</bucket>
+            </map>
+            <map to='#92c0df'>
+              <bucket>&quot;Брют&quot;</bucket>
+            </map>
+            <map to='#92c0df'>
+              <bucket>&quot;Сухое&quot;</bucket>
+            </map>
+            <map to='#b9ddf1'>
+              <bucket>&quot;Брют Экстра&quot;</bucket>
+            </map>
+          </encoding>
+          <encoding attr='color' field='[none:wine_type:nk]' type='palette'>
+            <map to='#4e79a7'>
+              <bucket>%null%</bucket>
+            </map>
+            <map to='#5c6068'>
+              <bucket>&quot;Ликерное&quot;</bucket>
+            </map>
+            <map to='#87d180'>
+              <bucket>&quot;Белое&quot;</bucket>
+            </map>
+            <map to='#ae123a'>
+              <bucket>&quot;Красное&quot;</bucket>
+            </map>
+            <map to='#f9a750'>
+              <bucket>&quot;Игристое&quot;</bucket>
+            </map>
+            <map to='#fdab9b'>
+              <bucket>&quot;Розовое&quot;</bucket>
             </map>
           </encoding>
         </style-rule>
@@ -6851,6 +6851,17 @@
             <column-instance column='[Calculation_6698963727080833030]' derivation='User' name='[usr:Calculation_6698963727080833030:qk]' pivot='key' type='quantitative' />
             <column caption='Wine Type' datatype='string' name='[wine_type]' role='dimension' type='nominal' />
           </datasource-dependencies>
+          <manual-sort column='[federated.1um0nzk0w600vk138gg8e0hmyap2].[none:sugar:nk]' direction='ASC'>
+            <dictionary>
+              <bucket>&quot;Брют Экстра&quot;</bucket>
+              <bucket>&quot;Брют&quot;</bucket>
+              <bucket>&quot;Сухое&quot;</bucket>
+              <bucket>&quot;Полусухое&quot;</bucket>
+              <bucket>&quot;Полусладкое&quot;</bucket>
+              <bucket>&quot;Сладкое&quot;</bucket>
+              <bucket>%null%</bucket>
+            </dictionary>
+          </manual-sort>
           <aggregation value='true' />
         </view>
         <style>
@@ -6899,6 +6910,9 @@
               <breakdown value='auto' />
             </view>
             <mark class='Automatic' />
+            <encodings>
+              <color column='[federated.1um0nzk0w600vk138gg8e0hmyap2].[none:wine_type:nk]' />
+            </encodings>
             <style>
               <style-rule element='mark'>
                 <format attr='mark-labels-show' value='true' />
@@ -6911,7 +6925,7 @@
             </style>
           </pane>
         </panes>
-        <rows>([federated.1um0nzk0w600vk138gg8e0hmyap2].[pcto:usr:Calculation_6698963727080833030:qk:2] + [federated.1um0nzk0w600vk138gg8e0hmyap2].[usr:Calculation_6698963727080833030:qk])</rows>
+        <rows>([federated.1um0nzk0w600vk138gg8e0hmyap2].[usr:Calculation_6698963727080833030:qk] + [federated.1um0nzk0w600vk138gg8e0hmyap2].[pcto:usr:Calculation_6698963727080833030:qk:2])</rows>
         <cols>[federated.1um0nzk0w600vk138gg8e0hmyap2].[none:wine_type:nk]</cols>
       </table>
       <simple-id uuid='{1DD6CADD-B394-4A67-A44A-C16213DB89BF}' />
@@ -7114,6 +7128,7 @@
         <edge name='right'>
           <strip size='160'>
             <card pane-specification-id='2' param='[federated.1um0nzk0w600vk138gg8e0hmyap2].[none:sugar:nk]' type='color' />
+            <card pane-specification-id='3' param='[federated.1um0nzk0w600vk138gg8e0hmyap2].[none:wine_type:nk]' type='color' />
           </strip>
         </edge>
       </cards>
