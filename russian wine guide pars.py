@@ -19,13 +19,6 @@ def get_wines_list(url):
     return wl 
 
 
-
-def replace_commas(string):
-    
-    return regex.sub(',','.',string)
-
-
-
 def get_first_element(l):
     if len(l)>0:
         l = l[0]
@@ -67,7 +60,7 @@ def get_wine(url,wine_type):
 
         if len(price_for)>0:
             price_for = regex.sub('/','',price_for)
-            price_for = replace_commas(price_for)
+            price_for = price_for.replace(',','')
             
         
         brand = s.find('h1',class_="h1 product-title").text
