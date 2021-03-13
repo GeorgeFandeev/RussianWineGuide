@@ -124,7 +124,7 @@ def parse_wine_from_wine_list(winelist, wine_type):
         
         new_wine = get_wine(url, wine_type)
         
-        if type(df)==type(None):
+        if df is None:
             df = pd.DataFrame([new_wine])
         else:
             df = df.append(new_wine, ignore_index=True)
