@@ -4,6 +4,7 @@ import pandas as pd
 import regex
 import datetime
 import os
+import time 
 
 #%%
 
@@ -124,6 +125,10 @@ def parse_wine_from_wine_list(winelist, wine_type):
         
         k=k+1
         
+        if k % 50 == 0:
+            time.sleep(5)
+            print('Timeout 5!')
+        
     return df
 
 
@@ -139,8 +144,12 @@ wine_df = wine_df.append(parse_wine_from_wine_list(get_wines_list('https://rskrf
 wine_df = wine_df.append(parse_wine_from_wine_list(get_wines_list('https://rskrf.ru/ratings/napitki/alkogolnye/likyernoe-vino/'),'Ликерное'))
 wine_df = wine_df.append(parse_wine_from_wine_list(get_wines_list('https://rskrf.ru/ratings/napitki/alkogolnye/igristoe/'),'Игристое'))
 
+#%%%
+wine_df['rating_gost'] = wine_df['rating_gost'].str.replace(',','.')
 
-wine_df.to_csv('wines_df.csv')#+str(datetime.datetime.now())+'.csv')
+
+#%%%
+wine_df.to_csv('wines_df_2021.csv',sep=';')#+str(datetime.datetime.now())+'.csv')
 
 
 
